@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link type="text/css" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+</head>
+<body>
+
+<div class="menu">
+    {% for i in menu %}
+        <a class="item" href="{{i.url}}">{{i.name}}</a>
+    {% endfor %}
+</div>
+
+<div class="profile">
+    <h2>{{session['user_login']}}</h2>
+    <table border="1">
+        <tr>
+            <td><b>Ссылка</b></td>
+            <td><b>Переходы</b></td>
+            <td><b>Тип</b></td>
+            <td><b>Удалить</b></td>
+        </tr>
+        {% for h in hrefs %}
+        <tr>
+            <td><a href="{{baselink}}href/{{h[2]}}">{{baselink}}href/{{h[2]}}</a></td>
+            <td>{{h[5]}}</td>
+            <td>{{h[7]}}</td>
+            <td>
+                <form action="/delete" method="POST" class="delete">
+                    <button name="idd" class="table-btn" value="{{h[0]}}">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<form class="unlogin-form" action="/logout" method="post">
+    <button class="unlogin">Выйти</button>
+</form>
+
+</body>
+</html>
